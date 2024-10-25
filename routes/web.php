@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransactionController;
 
-Route::get('/', function () {
-    return inertia('Home');
-});
+Route::prefix('transactions')->resource('transactions', TransactionController::class);
