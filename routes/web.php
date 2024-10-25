@@ -36,3 +36,7 @@ Route::controller(AuthController::class)
             ->post('/logout', 'logout')
             ->name('logout');
     });
+
+Route::middleware('auth')->get('/', function () {
+    return redirect()->route('transaction.index');
+});
