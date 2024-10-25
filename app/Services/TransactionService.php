@@ -3,15 +3,33 @@
 namespace App\Services;
 
 use App\Models\Transaction;
+use App\Http\Filters\TransactionFilter;
+use Illuminate\Database\Eloquent\Collection;
 
 class TransactionService
 {
-    // public function getAllByFilter()
+    public function getAll($filters): Collection
+    {
+        $filter = app()->make(TransactionFilter::class, ['queryParams' => array_filter($filters)]);
+        
+        $transactions = Transaction::whereUserId(auth()->user()->id)->filter($filter)->get();
+        
+        return $transactions;
+    }
+
+    public function getSumByCategory($transactions)
+    {
+        return $transactions->groupBy('category')->map(function ($group) {
+            return $group->sum('sum');
+        });   
+    }
 
     public function store(array $data): Transaction
     {
         $data['user_id'] = auth()->user()->id;
+
         $transaction = Transaction::create($data);
+
         return $transaction;
     }
     
