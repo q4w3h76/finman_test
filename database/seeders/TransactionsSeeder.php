@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Transaction;
+use App\Models\User;
 
 class TransactionsSeeder extends Seeder
 {
@@ -13,6 +14,10 @@ class TransactionsSeeder extends Seeder
      */
     public function run(): void
     {
-        Transaction::factory(40)->create();
+        $users = User::all();
+
+        foreach ($users as $user) {
+            Transaction::factory(15)->sequence(['user_id' => $user->id])->create();
+        }
     }
 }
