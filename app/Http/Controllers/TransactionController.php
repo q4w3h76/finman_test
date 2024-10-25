@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Http\Requests\Transaction\StoreRequest;
 use App\Http\Requests\Transaction\UpdateRequest;
 use App\Services\TransactionService;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -20,9 +22,9 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::all();
+        $transactions = auth()->user()->transactions;
         return Inertia::render('Transaction/Index', [
             'title' => 'Transactions',
             'transactions' => $transactions
@@ -56,6 +58,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
+        Gate::authorize('update', $transaction);
         return Inertia::render('Transaction/Edit', [
             'title' => 'Create Transaction',
             'transaction' => $transaction
@@ -67,6 +70,8 @@ class TransactionController extends Controller
      */
     public function update(UpdateRequest $request, Transaction $transaction)
     {
+        Gate::authorize('update', $transaction);
+        
         $data = $request->validated();
 
         $this->transactionService->update($transaction, $data);
@@ -79,6 +84,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
+        Gate::authorize('delete', $transaction);
+        
         $this->transactionService->delete($transaction);
 
         return redirect()->route('transactions.index');
