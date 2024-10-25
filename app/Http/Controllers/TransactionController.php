@@ -6,6 +6,7 @@ use App\Models\Transaction;
 use Inertia\Inertia;
 use App\Http\Requests\Transaction\StoreRequest;
 use App\Http\Requests\Transaction\UpdateRequest;
+use App\Http\Requests\Transaction\FilterRequest;
 use App\Services\TransactionService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -22,12 +23,13 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(FilterRequest $request)
     {
-        $transactions = auth()->user()->transactions;
-        $sumByCategory = $transactions->groupBy('category')->map(function ($group) {
-            return $group->sum('sum');
-        });
+        $filters = $request->validated();
+
+        $transactions = $this->transactionService->getAll($filters);
+        $sumByCategory = $this->transactionService->getSumByCategory($transactions);
+        
         return Inertia::render('Transaction/Index', [
             'title' => 'Transactions',
             'transactions' => $transactions,
