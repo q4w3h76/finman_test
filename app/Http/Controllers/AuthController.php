@@ -40,6 +40,10 @@ class AuthController extends Controller
     {
         $this->authService->logout();
 
+        $request->session()->ivalidate();
+        
+        $request->session()->regenerateToken();
+
         return redirect()->route('login.index');
     }
 }
