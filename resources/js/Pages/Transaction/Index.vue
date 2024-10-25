@@ -7,12 +7,17 @@
             <p>{{ transaction.sum }}</p>
             <p>{{ transaction.category }}</p>
             <p>{{ transaction.created_at }}</p>
+            <Link :href="route('transactions.destroy', transaction)" method="delete" as="button">Delete</Link>
         </li>
     </ul>
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3'
 export default {
+    components: {
+        Link,
+    },
     props: {
         title: String,
         transactions: Array
