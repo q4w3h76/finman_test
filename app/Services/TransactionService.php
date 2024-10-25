@@ -10,6 +10,7 @@ class TransactionService
 
     public function store(array $data): Transaction
     {
+        $data['user_id'] = auth()->user()->id;
         $transaction = Transaction::create($data);
         return $transaction;
     }
