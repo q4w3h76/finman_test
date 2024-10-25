@@ -14,7 +14,7 @@ class AuthService
         return null;
     }
 
-    public function logout(User $user): void {
-        Auth::logout($user);
+    public function logout(): void {
+        Auth::logout();
     }
 }

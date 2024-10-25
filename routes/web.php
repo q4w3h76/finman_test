@@ -38,5 +38,5 @@ Route::controller(AuthController::class)
     });
 
 Route::middleware('auth')->get('/', function () {
-    return redirect()->route('transaction.index');
+    return redirect()->route('transactions.index');
 });
