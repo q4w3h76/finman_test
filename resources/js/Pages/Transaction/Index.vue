@@ -1,6 +1,10 @@
 
 <template>
     <h1>{{title}}</h1>
+    <div>
+        <h2>Income: {{ sumByCategory['income'] }}</h2>
+        <h2>Consumption: {{ sumByCategory['consumption'] }}</h2>
+    </div>
     <ul>
         <li v-for="transaction in transactions" :key="transaction.id" class="">
             <p>{{ transaction.description }}</p>
@@ -21,7 +25,8 @@ export default {
     },
     props: {
         title: String,
-        transactions: Array
+        transactions: Array,
+        sumByCategory: Object,
     },
 }
 </script>
