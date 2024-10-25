@@ -25,9 +25,13 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $transactions = auth()->user()->transactions;
+        $sumByCategory = $transactions->groupBy('category')->map(function ($group) {
+            return $group->sum('sum');
+        });
         return Inertia::render('Transaction/Index', [
             'title' => 'Transactions',
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'sumByCategory' => $sumByCategory,
         ]);
     }
 
