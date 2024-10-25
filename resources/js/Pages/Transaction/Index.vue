@@ -8,6 +8,7 @@
             <p>{{ transaction.category }}</p>
             <p>{{ transaction.created_at }}</p>
             <Link :href="route('transactions.destroy', transaction)" method="delete" as="button">Delete</Link>
+            <Link :href="route('transactions.edit', transaction)" method="get" as="button">Edit</Link>
         </li>
     </ul>
 </template>
