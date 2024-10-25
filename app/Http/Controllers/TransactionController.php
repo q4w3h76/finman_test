@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Inertia\Inertia;
+use App\Http\Requests\Transaction\StoreRequest;
+use App\Http\Requests\Transaction\UpdateRequest;
+use App\Services\TransactionService;
 
 class TransactionController extends Controller
 {
+    private TransactionService $transactionService;
+
+    public function __construct(TransactionService $transactionService)
+    {
+        $this->transactionService = $transactionService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -25,46 +34,53 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Transaction/Create', [
+            'title' => 'Create Transaction'
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $transaction = $this->transactionService->store($data);
+
+        return redirect()->route('transactions.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Transaction $transaction)
     {
-        //
+        return Inertia::render('Transaction/Edit', [
+            'title' => 'Create Transaction',
+            'transaction' => $transaction
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Transaction $transaction)
     {
-        //
+        $data = $request->validated();
+
+        $this->transactionService->update($transaction, $data);
+
+        return redirect()->route('transactions.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Transaction $transaction)
     {
-        //
+        $this->transactionService->delete($transaction);
+
+        return redirect()->route('transactions.index');
     }
 }
