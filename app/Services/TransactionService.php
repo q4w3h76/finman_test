@@ -12,7 +12,7 @@ class TransactionService
     {
         $filter = app()->make(TransactionFilter::class, ['queryParams' => array_filter($filters)]);
         
-        $transactions = Transaction::whereUserId(auth()->user()->id)->filter($filter)->orderByDesc('created_at')->paginate(15);
+        $transactions = Transaction::whereUserId(auth()->user()->id)->filter($filter)->orderByDesc('created_at')->get();
         
         return $transactions;
     }
