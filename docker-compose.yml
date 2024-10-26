@@ -19,7 +19,6 @@ services:
       - ./:/var/www
     depends_on:
       - db
-      - mail
       - node
     container_name: ${APP_NAME}_app
   
