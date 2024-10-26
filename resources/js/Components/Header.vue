@@ -6,7 +6,7 @@
         <img class="h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="">
       </a>
     </div>
-    <div class="hidden lg:flex lg:gap-x-12">
+    <div v-if="page.props.auth.user" class="hidden lg:flex lg:gap-x-12">
       <Link :href="route('transactions.create')" class="text-lg font-semibold leading-6 text-gray-900 hover:text-indigo-700" >Create</Link>
       <Link :href="route('transactions.index')" class="text-lg font-semibold leading-6 text-gray-900 hover:text-indigo-700" >Transactions</Link>
     </div>

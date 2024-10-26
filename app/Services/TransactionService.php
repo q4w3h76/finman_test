@@ -20,7 +20,7 @@ class TransactionService
     public function getSumByCategory($transactions)
     {
         return $transactions->groupBy('category')->map(function ($group) {
-            return $group->sum('sum');
+            return round($group->sum('sum'), 2);
         });   
     }
 

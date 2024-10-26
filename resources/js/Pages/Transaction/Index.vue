@@ -5,7 +5,7 @@
     </div>
     <div class="flex mx-auto max-w-2xl text-center justify-evenly mt-5">
         <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900">Income: {{ sumByCategory['income'] ?? 0 }}</h2>
-        <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900">Consumption: {{ sumByCategory['consumption'] ?? 0 }}</h2>
+        <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900">Expense: {{ sumByCategory['expense'] ?? 0 }}</h2>
     </div>
     <div class="my-5 flex-col mx-auto items-center">
         <h3 class="text-balance text-lg font-semibold tracking-tight text-gray-900" >Filter by date:</h3>

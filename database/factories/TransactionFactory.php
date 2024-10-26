@@ -19,7 +19,7 @@ class TransactionFactory extends Factory
         return [
             'sum' => fake()->randomFloat(2),
             'description' => fake()->sentence(),
-            'category' => fake()->randomElement(['income', 'consumption']),
+            'category' => fake()->randomElement(['income', 'expense']),
         ];
     }
 }
