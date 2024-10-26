@@ -35,6 +35,7 @@ class TransactionController extends Controller
             'title' => 'Transactions',
             'transactions' => TransactionCollection::make($transactions),
             'sumByCategory' => $sumByCategory,
+            'filters' => $filters
         ]);
     }
 
