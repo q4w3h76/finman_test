@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Inertia\Inertia;
+use App\Http\Resources\TransactionCollection;
 use App\Http\Requests\Transaction\StoreRequest;
 use App\Http\Requests\Transaction\UpdateRequest;
 use App\Http\Requests\Transaction\FilterRequest;
@@ -32,7 +33,7 @@ class TransactionController extends Controller
         
         return Inertia::render('Transaction/Index', [
             'title' => 'Transactions',
-            'transactions' => $transactions,
+            'transactions' => TransactionCollection::make($transactions),
             'sumByCategory' => $sumByCategory,
         ]);
     }
