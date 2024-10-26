@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TransactionService
 {
-    public function getAll($filters): Collection
+    public function getAll($filters)
     {
         $filter = app()->make(TransactionFilter::class, ['queryParams' => array_filter($filters)]);
         
-        $transactions = Transaction::whereUserId(auth()->user()->id)->filter($filter)->get();
+        $transactions = Transaction::whereUserId(auth()->user()->id)->filter($filter)->orderByDesc('created_at')->paginate(15);
         
         return $transactions;
     }
