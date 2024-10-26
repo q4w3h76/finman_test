@@ -18,7 +18,7 @@
             <label for="category" class="mx-auto mt-5 max-w-xl">Category:</label>
             <select v-model="form.category" id="category" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
                 <option value="income">Income</option>
-                <option value="consumption">Consumption</option>
+                <option value="expense">Expense</option>
             </select>
             <DangerAlert v-if="form.errors.category" :message="form.errors.category" />
         </div>
