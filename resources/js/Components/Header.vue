@@ -11,7 +11,7 @@
       <Link :href="route('transactions.index')" class="text-lg font-semibold leading-6 text-gray-900 hover:text-indigo-700" >Transactions</Link>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <div v-if="false">
+      <div v-if="page.props.auth.user">
           <Link :href="route('auth.logout')" method="post" as="button" class="text-lg font-semibold leading-6 text-gray-900 hover:text-red-700" >Logout</Link> 
       </div>
       <div v-else class="flex gap-x-3">
@@ -23,11 +23,16 @@
 </template>
 
 <script>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 
 export default {
     components: {
         Link
+    },
+    data() {
+      return {
+        page: usePage()
+      }
     }
 }
 </script>
